@@ -1,0 +1,5 @@
+[submodule "data/cpython"]
+	path = data/cpython
+	url = https://github.com/python/cpython.git
+	branch = 3.10
+	sparse-checkout = /Doc/library/

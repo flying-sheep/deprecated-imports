@@ -1,0 +1,44 @@
+[project]
+name = 'deprecated_imports'
+description = 'A linter for deprecated imports.'
+authors = [
+	{ name = 'Phil A.', email = 'flying-sheep@web.de' },
+]
+license = { file = 'LICENSE' }
+readme = 'README.rst'
+classifiers = ['License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)']
+requires-python = '>=3.8'
+dynamic = ['version']
+
+[project.urls]
+Source = 'https://github.com/flying-sheep/deprecated-imports'
+Docs = 'https://deprecated-imports.readthedocs.io/en/latest/'
+
+[tool.hatch.version]
+source = 'vcs'
+
+
+[tool.black]
+line-length = 100
+skip-string-normalization = true
+
+[tool.isort]
+profile = 'black'
+line_length = 100
+length_sort_straight = true
+lines_after_imports = 2
+
+[tool.flake8]
+max-line-length = 100
+ignore = [
+    'E203', # whitespace before ':'
+    'W503', # line break before binary operator ==
+]
+
+[tool.pytest.ini_options]
+xfail_strict = true
+
+
+[build-system]
+requires = ['hatchling', 'hatch-vcs']
+build-backend = 'hatchling.build'
