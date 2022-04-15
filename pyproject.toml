@@ -9,6 +9,11 @@ readme = 'README.rst'
 classifiers = ['License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)']
 requires-python = '>=3.8'
 dynamic = ['version']
+dependencies = []
+
+[project.optional-dependencies]
+test = ['pytest']
+cpython-parser = ['sphinx']
 
 [project.urls]
 Source = 'https://github.com/flying-sheep/deprecated-imports'
