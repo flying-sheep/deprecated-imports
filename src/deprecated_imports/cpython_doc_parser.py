@@ -36,7 +36,15 @@ def make_extract_directive_class() -> type[Directive]:
         final_argument_whitespace = True
 
         def run(self) -> list[Node]:
-            pass
+            if self.state.parent and (desc := self.state.parent.parent).tagname == 'desc':
+                print(desc)
+            else:
+                assert self.state.parent.tagname == 'section'
+                if mod_name := self.env.ref_context.get(
+                    'py:module'
+                ):  # not present e.g. in windows.rst
+                    type(self).mod_name = mod_name
+            return []
 
     return VersionChange
 
@@ -85,11 +93,11 @@ def main(args: Sequence[str] | None = None):
     with SphinxWrapper(path) as parser:
         for file in path.rglob('*.rst'):
             try:
-                # Extract = make_extract_directive_class()
-                # register_directives(deprecated=Extract)
-                document = parser.parse(file)
-                print(document)
-                # print(Extract.mod_name, Extract...)
+                Extract = make_extract_directive_class()
+                parser.sphinx.add_directive('deprecated', Extract, override=True)
+                parser.parse(file)
+                if Extract.mod_name:
+                    print(Extract.mod_name)
             except Exception:
                 raise RuntimeError(f'Error processing {file.relative_to(path)}')
 
