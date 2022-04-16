@@ -11,11 +11,12 @@ from types import TracebackType
 from typing import ClassVar, cast
 
 # from sphinx.util.nodes import nested_parse_with_titles
+from docutils import nodes
 from docutils.nodes import Node
 from docutils.parsers.rst import Directive
 from sphinx.application import Sphinx
 from sphinx.testing.restructuredtext import parse
-from sphinx.util.docutils import docutils_namespace, patch_docutils
+from sphinx.util.docutils import SphinxDirective, docutils_namespace, patch_docutils
 
 
 def make_arg_parser() -> ArgumentParser:
@@ -24,20 +25,20 @@ def make_arg_parser() -> ArgumentParser:
     return parser
 
 
-def make_extract_mod_directive_class() -> type[Directive]:
-    # sphinx.domains.python:PyModule
-    class ExtractMod(Directive):
-        has_content = False
-        final_argument_whitespace = False
-
+def make_extract_directive_class() -> type[Directive]:
+    # sphinx.domains.changeset:VersionChange
+    class VersionChange(SphinxDirective):
         mod_name: ClassVar[str | None] = None
 
-        def run(self) -> list[Node]:
-            assert self.mod_name is None
-            ExtractMod.mod_name = self.arguments[0].strip()
-            return []
+        has_content = True
+        required_arguments = 1
+        optional_arguments = 1
+        final_argument_whitespace = True
 
-    return ExtractMod
+        def run(self) -> list[Node]:
+            pass
+
+    return VersionChange
 
 
 @dataclass
@@ -70,16 +71,10 @@ class SphinxWrapper:
         self.sphinx = None
         return False  # don’t suppress
 
-    def parse(self, file: Path):
-        # ExtractMod = make_extract_mod_directive_class()
-
-        # register_directives(module=ExtractMod)
-
+    def parse(self, file: Path) -> nodes.document:
         docname = str(file.relative_to(self.src_path).with_suffix(''))
         self.sphinx.env.prepare_settings(docname)
-        parse(self.sphinx, file.read_text(), docname)
-
-        # print(ExtractMod.mod_name)
+        return parse(self.sphinx, file.read_text(), docname)
 
 
 def main(args: Sequence[str] | None = None):
@@ -90,7 +85,11 @@ def main(args: Sequence[str] | None = None):
     with SphinxWrapper(path) as parser:
         for file in path.rglob('*.rst'):
             try:
-                parser.parse(file)
+                # Extract = make_extract_directive_class()
+                # register_directives(deprecated=Extract)
+                document = parser.parse(file)
+                print(document)
+                # print(Extract.mod_name, Extract...)
             except Exception:
                 raise RuntimeError(f'Error processing {file.relative_to(path)}')
 
