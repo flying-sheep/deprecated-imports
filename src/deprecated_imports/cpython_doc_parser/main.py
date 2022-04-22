@@ -77,7 +77,7 @@ def main(args: Sequence[str] | None = None) -> None:
 
             try:
                 parser.parse(file)
-                if Extract.mod_name:
-                    print(Extract.mod_name)
+                if Extract.deprecations:
+                    print(Extract.deprecations)
             except Exception:
                 raise RuntimeError(f'Error processing {file.relative_to(path)}')
