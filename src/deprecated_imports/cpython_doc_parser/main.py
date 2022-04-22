@@ -72,12 +72,12 @@ def main(args: Sequence[str] | None = None) -> None:
         suppress_role_messages(parser.reader)
 
         for file in path.rglob('*.rst'):
-            Extract = make_extract_directive_class()
-            parser.sphinx.add_directive('deprecated', Extract, override=True)
+            ExtractDirective = make_extract_directive_class()
+            parser.sphinx.add_directive('deprecated', ExtractDirective, override=True)
 
             try:
                 parser.parse(file)
-                if Extract.deprecations:
-                    print(Extract.deprecations)
+                if ExtractDirective.deprecations:
+                    print(ExtractDirective.deprecations)
             except Exception:
                 raise RuntimeError(f'Error processing {file.relative_to(path)}')
