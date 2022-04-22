@@ -2,4 +2,4 @@
 	path = data/cpython
 	url = https://github.com/python/cpython.git
 	branch = 3.10
-	sparse-checkout = /Doc/library/ /Doc/using/
+	sparse-checkout = /Doc/library/ /Doc/using/ /Doc/includes/ /Parser/Python.asdl /Tools/scripts/ /Lib/test/exception_hierarchy.txt
