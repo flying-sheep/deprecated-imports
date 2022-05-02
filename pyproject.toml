@@ -2,10 +2,12 @@
 name = 'deprecated_imports'
 description = 'A linter for deprecated imports.'
 authors = [
-	{ name = 'Phil A.', email = 'flying-sheep@web.de' },
+    { name = 'Phil A.', email = 'flying-sheep@web.de' },
 ]
 license = { file = 'LICENSE' }
 readme = 'README.rst'
+urls.Source = 'https://github.com/flying-sheep/deprecated-imports'
+urls.Docs = 'https://deprecated-imports.readthedocs.io/en/latest/'
 classifiers = ['License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)']
 requires-python = '>=3.8'
 dynamic = ['version']
@@ -14,10 +16,6 @@ dependencies = []
 [project.optional-dependencies]
 test = ['pytest']
 cpython-parser = ['sphinx']
-
-[project.urls]
-Source = 'https://github.com/flying-sheep/deprecated-imports'
-Docs = 'https://deprecated-imports.readthedocs.io/en/latest/'
 
 [tool.hatch.version]
 source = 'vcs'
