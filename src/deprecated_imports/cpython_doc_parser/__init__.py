@@ -1,1 +1,1 @@
-"""Parses the CPython docs’ ``.. deprecated:: ver`` directives."""
+"""Parses the CPython docs’ ``deprecated`` directives."""
