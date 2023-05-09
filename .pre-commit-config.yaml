@@ -6,7 +6,7 @@ repos:
     - id: trailing-whitespace
     - id: end-of-file-fixer
 -   repo: https://github.com/PyCQA/docformatter
-    rev: v1.6.4
+    rev: v1.6.5
     hooks:
     - id: docformatter
       args: ['--wrap-summaries=100', '--wrap-descriptions=100']
