@@ -1,6 +1,11 @@
 deprecated-imports
 ==================
 
+.. warning::
+
+   Ruff’s pyupgrade_ rules do most of what this wants to do.
+
+.. _pyupgrade: https://docs.astral.sh/ruff/rules/#pyupgrade-up
 
 development
 -----------
